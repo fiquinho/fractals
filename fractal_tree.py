@@ -1,14 +1,14 @@
 import turtle
-
+import random
 
 WIDTH, HEIGHT = 500, 500
 START_X, START_Y = 0, -int(HEIGHT * 0.8 / 2)
-RECURSION = 5
 STARTING_LENGTH = 100
 
-
+RECURSION = 5
 SPLIT = 4
 ANGLE = 30
+DRAW_CHANCE = 0.85
 
 
 def setup_window():
@@ -32,7 +32,8 @@ def setup_window():
     turtle.setheading(90)
 
 
-def draw_lines(length: int, depth: int, angle: int, branches: int):
+def draw_lines(length: int, depth: int, angle: int,
+               branches: int, draw_chance: float):
 
     # Draw the current branch
     turtle.width(depth + 1)
@@ -47,7 +48,9 @@ def draw_lines(length: int, depth: int, angle: int, branches: int):
         turtle.left(start_branch_angle)
 
         for i in range(branches):
-            draw_lines(int(length * 0.75), depth - 1, angle, branches)
+            chance = random.uniform(0, 1)
+            if chance < draw_chance:
+                draw_lines(int(length * 0.75), depth - 1, angle, branches, draw_chance)
             if i < SPLIT - 1:
                 turtle.right(angle)
 
@@ -58,16 +61,14 @@ def draw_lines(length: int, depth: int, angle: int, branches: int):
     turtle.left(180)
 
 
-def draw_fractal_tree(branches: int, angle: int, depth: int):
+def draw_fractal_tree(branches: int, angle: int, depth: int, draw_chance: float):
     setup_window()
-    draw_lines(STARTING_LENGTH, depth, angle, branches)
+    draw_lines(STARTING_LENGTH, depth, angle, branches, draw_chance)
     turtle.exitonclick()
 
 
 def main():
-    setup_window()
-    draw_lines(STARTING_LENGTH, RECURSION, ANGLE, SPLIT)
-    turtle.exitonclick()
+    draw_fractal_tree(SPLIT, ANGLE, RECURSION, DRAW_CHANCE)
 
 
 if __name__ == '__main__':
