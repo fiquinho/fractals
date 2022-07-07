@@ -2,6 +2,9 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 
+from fractal_tree import *
+
+
 st.markdown("# Fractal Tree")
 st.markdown("Change the values of the variables:")
 st.markdown(" - **DEPTH** = The number of layers")
@@ -10,3 +13,5 @@ st.markdown(" - **ANGLE** = The angle between branches")
 st.markdown(" - **DRAW_CHANCE** = The chance of every branch to get rendered")
 
 components.iframe("https://replit.com/@FedericoBogado/FractalTree?lite=true", height=1000, width=1000)
+
+st.write(draw_fractal_tree(BRANCHES, ANGLE, DEPTH, DRAW_CHANCE))
