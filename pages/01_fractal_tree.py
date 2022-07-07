@@ -1,19 +1,12 @@
-import multiprocessing
-
 import streamlit as st
-from fractal_tree import draw_fractal_tree
+import streamlit.components.v1 as components
 
 
 st.markdown("# Fractal Tree")
-branches = st.number_input("Branches", value=4)
-angle = st.number_input("Angle", value=30)
-depth = st.number_input("Depth", value=5)
-draw_chance = st.number_input("Draw Chance", value=0.85)
+st.markdown("Change the values of the variables:")
+st.markdown(" - **DEPTH** = The number of layers")
+st.markdown(" - **BRANCHES** = Number of branches on each level")
+st.markdown(" - **ANGLE** = The angle between branches")
+st.markdown(" - **DRAW_CHANCE** = The chance of every branch to get rendered")
 
-clicked = st.button("Paint")
-
-t = multiprocessing.Process(target=draw_fractal_tree,
-                            args=(branches, angle, depth, draw_chance,))
-
-if clicked:
-    t.start()
+components.iframe("https://replit.com/@FedericoBogado/FractalTree?lite=true", height=1000, width=1000)
